@@ -14,3 +14,4 @@ def flop(croupier):
 
 def turn_river(croupier):
     table.append(croupier.pop())
+
