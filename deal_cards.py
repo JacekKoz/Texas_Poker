@@ -1,5 +1,12 @@
+import deal_cards
+import main
+import shuffling_cards
 
 table = []
+
+table_bank: int = 0
+bank: int = 0
+people: int = 0
 
 def dealing_cars(croupier, list_of_persons):
     for person in list_of_persons:

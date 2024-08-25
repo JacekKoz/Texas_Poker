@@ -1,4 +1,5 @@
 import random
+import main
 
 colors = ["♥️", "♦️", "♠️", "♣️"]
 
@@ -8,9 +9,15 @@ croupier = []
 
 def number_of_people(people):
     list_of_persons = []
-    for i in range(people):
+    for _ in range(people):
         list_of_persons.append([])
     return list_of_persons
+
+def number_of_banks(people, bank):
+    list_of_banks = []
+    for _ in range(people):
+        list_of_banks.append(bank)
+    return list_of_banks
 
 
 def deck_maker(croupier):
