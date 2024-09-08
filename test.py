@@ -1,57 +1,46 @@
 import random
 
-# Tworzymy talię kart
-def stworz_talie():
-    kolory = ['♥', '♦', '♣', '♠']
-    wartosci = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
-    talia = [(wartosc, kolor) for wartosc in wartosci for kolor in kolory]
-    random.shuffle(talia)
-    return talia
+colors = ["♥️", "♦️", "♠️", "♣️"]
+ranges = ["Ace", "King", "Queen", "Jack", "10", "9", "8", "7", "6", "5", "4", "3", "2"]
 
-# Rozdanie kart graczom
-def rozdanie_kart(talia):
-    gracz1 = [talia.pop() for _ in range(2)]
-    gracz2 = [talia.pop() for _ in range(2)]
-    return gracz1, gracz2
+class Player:
+    def __init__(self, name, bank):
+        self.name = name
+        self.bank = bank
+        self.hand = []
 
-# Flop - wyłożenie 3 kart wspólnych
-def flop(talia):
-    karty_wspolne = [talia.pop() for _ in range(3)]
-    return karty_wspolne
+    def add_cards(self, card):
+        self.hand.append(card)
 
-# Turn - wyłożenie 4 karty wspólnej
-def turn(talia, karty_wspolne):
-    karty_wspolne.append(talia.pop())
-    return karty_wspolne
+    def __str__(self):
+        return f"Player: {self.name}, Bank: {self.bank}, Hand: {', '.join(self.hand)}"
+        
+class Croupier:
+    def __init__(self, colors, ranges):
+        self.deck = [f"{range} {color}" for color in colors for range in ranges]
+        random.shuffle(self.deck)
 
-# River - wyłożenie 5 karty wspólnej
-def river(talia, karty_wspolne):
-    karty_wspolne.append(talia.pop())
-    return karty_wspolne
+    def deal_the_card(self, player):
+        if self.deck:
+            player.add_cards(self.deck.pop())
 
-# Symulacja jednej rundy
-def runda_poker():
-    talia = stworz_talie()
-    gracz1, gracz2 = rozdanie_kart(talia)
-    
-    print("Karty gracza 1:", gracz1)
-    print("Karty gracza 2:", gracz2)
-    
-    karty_wspolne = flop(talia)
-    print("\nFlop:", karty_wspolne)
-    
-    karty_wspolne = turn(talia, karty_wspolne)
-    print("Turn:", karty_wspolne)
-    
-    karty_wspolne = river(talia, karty_wspolne)
-    print("River:", karty_wspolne)
+    def dealing_two_cards(self, players):
+        print("START")
+        for player in players:
+            self.deal_the_card(player)
+            self.deal_the_card(player)
+        print("STOP")
 
-# Symulacja kilku rund
-def symuluj_rundy(ilosc_rund):
-    for runda in range(1, ilosc_rund + 1):
-        print(f"\nRunda {runda}:")
-        runda_poker()
+def create_a_player(people, bank):
+    return [Player(f"Player {i + 1}", bank) for i in range(people)]
 
-# Przykład użycia: symulacja 3 rund
-symuluj_rundy(3)
+# Tworzenie croupiera i graczy
+croupier = Croupier(colors, ranges)
+players = create_a_player(4, 1000)
 
+# Rozdawanie dwóch kart
+croupier.dealing_two_cards(players)
+
+# Wyświetlenie graczy
+for player in players:
+    print(player)

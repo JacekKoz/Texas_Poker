@@ -7,6 +7,7 @@ def main():
   table_bank: int = 0
   bank: int = 0
   people: int = 0
+  user_bet = 10
 
   while people <= 1:
     people = int(input("How many players are playing?(at least 2)\n"))
@@ -14,14 +15,14 @@ def main():
     bank = int(input("What is the starting money pool? (it cannot be less than 10$):\n")) 
   list_of_persons = shuffling_cards.number_of_people(people)
   list_of_banks = shuffling_cards.number_of_banks(people, bank)
-  print(list_of_banks[i])
   shuffling_cards.deck_maker(shuffling_cards.croupier)
   deal_cards.dealing_cars(shuffling_cards.croupier, list_of_persons)
   deal_cards.flop(shuffling_cards.croupier)
-  table_bank, bank, user_bet = banker.big_blind(table_bank, list_of_banks[i])
-  table_bank, bank, user_bet = banker.small_blind(table_bank, list_of_banks[i], user_bet)
+  # table_bank, bank, user_bet = banker.big_blind(table_bank, list_of_banks[i])
+  # table_bank, bank, user_bet = banker.small_blind(table_bank, list_of_banks[i], user_bet)
+  print(list_of_banks)
 
-      #TODO W sumie nic nie zrobiłem ;c
+      #TODO Spróbuj skupić się na samej mechanice raise w pliku 'test.py' zobaczymy co będzie w przyszłości (NIE PODDAWAJ SIE)
   while True:
     for i in range(people):
 
@@ -57,7 +58,7 @@ def main():
             table_bank, bank, user_bet = banker.raise_bet(table_bank, bank, money, user_bet)
 
           if question_1 == "N":
-            money = 2 * banker.big_blind(user_bet)
+            money = 2 * banker.big_blind(user_bet, bank)
             table_bank, bank, user_bet = banker.raise_bet(table_bank, bank, money, user_bet)
           else:
               print("You must select 'Y' or 'N'\n")
